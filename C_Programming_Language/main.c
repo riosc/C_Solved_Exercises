@@ -13,16 +13,12 @@
 #define STEP    20
 
 int main(){
-    int c, bs = 0, t = 0, nl = 0;
+    int c, antChar = -1;
     while ((c = getchar()) != EOF) {
-        if (c == ' ')
-            ++bs;
-        else if (c == '\t')
-            ++t;
-        else if (c == '\n')
-            ++nl;
-        //putchar(c);
-        printf("%c __ bs: %d t: %d nl: %d\n", c, bs, t, nl);
+        if (!(antChar == ' ' && c == ' '))
+            putchar(c);
+        
+        antChar = c;
     }
     
 }
