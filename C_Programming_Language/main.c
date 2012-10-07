@@ -15,10 +15,13 @@
 int main(){
     int c, antChar = -1;
     while ((c = getchar()) != EOF) {
-        if (!(antChar == ' ' && c == ' '))
+        if (!((antChar == '\\' && c == '\\')     ||
+            (antChar == '\t' && c == '\t')     ||
+            (antChar == '\b' && c == '\b')))
             putchar(c);
         
         antChar = c;
     }
     
 }
+
