@@ -8,19 +8,31 @@
 
 #include <stdio.h>
 
-#define LOWER   0
-#define UPPER   300
-#define STEP    20
+#define IN   1
+#define OUT   0
 
 int main(){
-    int c, antChar = -1;
+    int c, nl, nw, nc, state;
+    
+    state = OUT;
+    nl = nw = nc = 0;
     while ((c = getchar()) != EOF) {
-        if (!((antChar == '\\' && c == '\\')     ||
-            (antChar == '\t' && c == '\t')     ||
-            (antChar == '\b' && c == '\b')))
-            putchar(c);
+        putchar(c);
+        //++nc;
+        //if (c == '\n')
+        //    ++nl;
+        if (c == ' ' || c == '\n' || c== '\t'){
+            if (state == IN) {
+                state = OUT;
+                printf("\n");
+            }
+        }
+        else if (state == OUT){
+            state = IN;
+            ++nw;
+        }
+        //printf("%d %d %d\n", nl, nw, nc);
         
-        antChar = c;
     }
     
 }
