@@ -12,27 +12,28 @@
 #define OUT   0
 
 int main(){
-    int c, nl, nw, nc, state;
+    int c, nl, nw, nc, state ,wl;
     
     state = OUT;
-    nl = nw = nc = 0;
+    nl = nw = nc = wl = 0;
     while ((c = getchar()) != EOF) {
-        putchar(c);
-        //++nc;
-        //if (c == '\n')
-        //    ++nl;
+	
         if (c == ' ' || c == '\n' || c== '\t'){
             if (state == IN) {
                 state = OUT;
                 printf("\n");
+		wl = 0; 
             }
         }
-        else if (state == OUT){
-            state = IN;
-            ++nw;
+        else{
+		wl++;
+		putchar(43);
+
+		if (state == OUT){
+            	state = IN;
+            	++nw;
+        	}
         }
-        //printf("%d %d %d\n", nl, nw, nc);
-        
     }
     
 }
