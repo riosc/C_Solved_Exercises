@@ -8,33 +8,16 @@
 
 #include <stdio.h>
 
-#define IN   1
-#define OUT   0
-
 int main(){
-    int c, nl, nw, nc, state ,wl;
-    
-    state = OUT;
-    nl = nw = nc = wl = 0;
-    while ((c = getchar()) != EOF) {
-	
-        if (c == ' ' || c == '\n' || c== '\t'){
-            if (state == IN) {
-                state = OUT;
-                printf("\n");
-		wl = 0; 
-            }
-        }
-        else{
-		wl++;
-		putchar(43);
-
-		if (state == OUT){
-            	state = IN;
-            	++nw;
-        	}
-        }
-    }
-    
+   int fahr;
+   for (fahr = 0; fahr <= 300; fahr = fahr + 20){
+      printf("%3d\t%6d\n", fahr, fahrToCelcius(fahr));
+   }
 }
 
+int fahrToCelcius(int fahr){
+   int celcius = 0;
+   celcius = 5 * (fahr - 32)/9;
+
+   return celcius;
+}
