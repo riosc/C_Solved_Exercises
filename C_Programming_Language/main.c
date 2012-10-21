@@ -7,17 +7,51 @@
 //
 
 #include <stdio.h>
+#define MAXLINE 1000
+
+int getLine(char line[], int maxline);
+void copy(char to[], char from[]);
 
 int main(){
-   int fahr;
-   for (fahr = 0; fahr <= 300; fahr = fahr + 20){
-      printf("%3d\t%6d\n", fahr, fahrToCelcius(fahr));
+   int len, max;
+   char line[MAXLINE];
+   char longest[MAXLINE];
+
+   max = 0;
+   while((len = getLine(line, MAXLINE)) > 0){
+      if (len > max){
+	 max = len;
+	 copy(longest, line);
+       }
+       if (max > 0)
+	  printf("%s", longest);
+
    }
+
+   return 0;
 }
 
-int fahrToCelcius(int fahr){
-   int celcius = 0;
-   celcius = 5 * (fahr - 32)/9;
+int getLine(char s[], int lim){
+   int c, i;
 
-   return celcius;
+   for (i = 0; i < lim-1 && (c = getchar()) != EOF && c != '\n'; ++i){
+      s[i] = c;
+   }
+   if (c == '\n'){
+      s[i] = c;
+      ++i;
+   }
+   s[i] = '\0';
+
+   return i;
+
 }
+
+void copy(char to[], char from[]){
+   int i;
+   i = 0;
+
+   while (to[i] = from[i] != '\n')
+      ++i;
+}
+
