@@ -19,14 +19,17 @@ int main(){
 
    max = 0;
    while((len = getLine(line, MAXLINE)) > 0){
-      printf("Current Lines Is:%s With Lenght:%d", line, len);
+      if (len > 80){
+     	 printf("Current Lines Is:%s With Lenght:%d", line, len);
+      }
 
-      if (len > max){
+      /*if (len > max){
 	 max = len;
 	 copy(longest, line);
        }
        if (max > 0)
 	  printf("Longest Line: %s", longest);
+	*/
 
    }
 
