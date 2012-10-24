@@ -8,40 +8,43 @@
 
 #include <stdio.h>
 #define MAXLINE 1000
+#define BLANK_LINE 1
+#define NOBLANK_LINE 0
 
 int getLine(char line[], int maxline);
 void copy(char to[], char from[]);
+int isCharNotRepeated(int c);
 
 int main(){
    int len, max;
    char line[MAXLINE];
-   char longest[MAXLINE];
+   char temp[MAXLINE];
 
-   max = 0;
    while((len = getLine(line, MAXLINE)) > 0){
-      if (len > 80){
-     	 printf("Current Lines Is:%s With Lenght:%d", line, len);
-      }
-
-      /*if (len > max){
-	 max = len;
-	 copy(longest, line);
-       }
-       if (max > 0)
-	  printf("Longest Line: %s", longest);
-	*/
-
+	 copy(temp, line);
+	 printf("line: %s \n", temp);
    }
 
    return 0;
 }
 
 int getLine(char s[], int lim){
-   int c, i;
+   int c, i, prev;
+   prev = -1;
 
    for (i = 0; i < lim-1 && (c = getchar()) != EOF && c != '\n'; ++i){
-      s[i] = c;
+      if (!(isCharNotRepeated(c) && isCharNotRepeated(prev)))
+	 s[i] = c;
+      else
+	 i--;
+
+      prev = c;
    }
+
+   //if char array in composed by white spaces and tab
+   if (i == 1 && isCharNotRepeated(s[0]))
+      return -1;
+   
    if (c == '\n'){
       s[i] = c;
       ++i;
@@ -56,7 +59,15 @@ void copy(char to[], char from[]){
    int i;
    i = 0;
 
-   while (to[i] = from[i] != '\n')
+   while ((to[i] = from[i]) != '\0')
       ++i;
 }
+
+int isCharNotRepeated(int c){
+   if(c == '\t' || c == ' ')
+      return 1;
+   else
+      return 0;
+}
+
 
