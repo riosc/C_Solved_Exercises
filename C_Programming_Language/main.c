@@ -8,21 +8,24 @@
 
 #include <stdio.h>
 #define MAXLINE 1000
-#define BLANK_LINE 1
-#define NOBLANK_LINE 0
 
 int getLine(char line[], int maxline);
 void copy(char to[], char from[]);
 int isCharNotRepeated(int c);
+void reverse(char s[], char r[]);
+int endCharArray(char s[]);
 
 int main(){
    int len, max;
    char line[MAXLINE];
    char temp[MAXLINE];
+   char reve[MAXLINE];
 
    while((len = getLine(line, MAXLINE)) > 0){
 	 copy(temp, line);
-	 printf("line: %s \n", temp);
+	 reverse(temp, reve);
+
+	 printf("line: %s \n", reve);
    }
 
    return 0;
@@ -70,4 +73,24 @@ int isCharNotRepeated(int c){
       return 0;
 }
 
+void reverse(char s[], char r[]){
 
+   int i, findex;
+
+   findex = endCharArray(s);
+   printf("tam array: %d", findex);
+
+   for(i = 0; i < findex; i++)
+      r[i] = s[findex - i - 1];
+   
+   r[findex] = '\0';
+}
+
+int endCharArray(char s[]){
+   int i;
+   i = 0;
+   while (s[i] != EOF && s[i] != '\n' && i < MAXLINE)
+      ++i;
+   
+   return i;
+}
