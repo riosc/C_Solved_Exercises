@@ -19,7 +19,7 @@ int main(){
    while((len = getLine(line, MAXLINE)) > 0){
 	 copy(temp, line);
 	 //delRepeatedChars(trimLine, temp);
-	 replaceTabStops(tabSpaces, temp);
+	 entab(tabSpaces, temp);
 	 printf("%s", tabSpaces);
    }
 

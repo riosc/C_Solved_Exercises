@@ -1,11 +1,11 @@
 #define col 8
 
-int 	getLine(char line[], int maxline);
-void 	copy(char to[], char from[]);
-int 	isRestrictedChar(int c);
-int 	delRepeatedChars(char to[], char from[]);
-void 	replaceTabStops(char to[], char from[]);
-
+int 	getLine            (char line[], int maxline);
+void 	copy               (char to[], char from[]);
+int 	isRestrictedChar   (int c);
+int 	delRepeatedChars   (char to[], char from[]);
+void 	detab              (char to[], char from[]);
+void  entab              (char to[], char from[]);
 
 int delRepeatedChars(char to[], char from[]){
    int index, index2, c, prev;
@@ -67,33 +67,60 @@ int isRestrictedChar(int c){
       return 0;
 }
 
-void replaceTabStops(char to[], char from[]){
-   int i,		//inde array from
-   i2, 			//index array to
-   aCol,		//count tab spaces
-   j;			//iterate to complete space in tab stops
+void detab(char to[], char from[]){
+   int i,		 //inde array from
+   i2, 			 //index array to
+   aCol,		    //count tab spaces
+   j;			    //iterate to complete space in tab stops
    
    //actual column start in 0
    aCol = i2 		= 0;
 
    for 	(i = 0; from[i] != '\0'; i++){			//global iteration
-	if (from[i] == '\t'){				//if tab was found
-		for (j = 0; j < col - aCol; j++)	//complete tab with spaces	   		
-			to[i2++]	= ' ';
+   	if (from[i] == '\t'){				         //if tab was found
+   		for (j = 0; j < col - aCol; j++)	      //complete tab with spaces	   		
+   			to[i2++]	= ' ';
+         
+   		aCol 			= col - 1;	               //set aCol to final tab stop
+      }else{
+   	   	
+   		to[i2++]		= from[i];
+	  }
 
-		aCol 			= col - 1;	//set aCol to final tab stop
-      	}else{
-	   	
-		to[i2++]		= from[i];
-	}
-
-      aCol++;						//column space counter
+      aCol++;						                 //column space counter
       
-      if (aCol == col)
-	 aCol		 = 0;
-
+      if (aCol == col)                         //if complete a tab stop, reset column counter
+	     aCol		 = 0;
    }
-   to[i2]		= '\0';	
 
+   to[i2]		= '\0';	                       //final char array mark
+}
+
+void entab(char to[], char from[]){
+   int i,                                      //index from array
+      i2                   = 0,                //index to array
+      aCol                 = 0,                //count tab stop column
+      spacesCounter        = 0;                //count consecutive blank spaces
+
+   for (i = 0; from[i] != '\0'; i++){          //iteration on from array
+      
+      if    (from[i] == ' ')                   //if current char is a blank space add +1 spaceCounter
+            spacesCounter++;    
+      else  spacesCounter  = 0;
+
+      to[i2++]             = from[i];
+
+
+      if (++aCol == col){                      // if complete tab stop then verify is posible replace blanck spaces by tab
+         if (spacesCounter > 1){
+            i2             = i2 - spacesCounter;
+            to[i2++]       = '\t';
+            spacesCounter  = 0;
+         }
+         aCol              = 0;
+      }
+   }
+
+   to[i2]                  = '\0';
 }
 
