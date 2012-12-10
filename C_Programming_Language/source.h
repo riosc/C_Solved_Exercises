@@ -1,11 +1,15 @@
-#define col 8
+#define TABSIZE   8
+#define WCOL      127
+#define IN        1                    //inside a word
+#define OUT       0                    //outside out of a word
 
-int 	getLine            (char line[], int maxline);
-void 	copy               (char to[], char from[]);
-int 	isRestrictedChar   (int c);
-int 	delRepeatedChars   (char to[], char from[]);
-void 	detab              (char to[], char from[]);
-void  entab              (char to[], char from[]);
+
+int 	getLine             (char line[], int maxline);
+void 	copy                (char to[], char from[]);
+int 	isBlankSpace        (int c);
+int 	delRepeatedChars    (char to[], char from[]);
+void 	detab               (char to[], char from[]);
+void    entab               (char to[], char from[]);
 
 int delRepeatedChars(char to[], char from[]){
    int index, index2, c, prev;
@@ -15,18 +19,18 @@ int delRepeatedChars(char to[], char from[]){
    for (index = 0; from[index] != '\0'; index++){
       c = from[index];
 
-      if (!(isRestrictedChar(c) && isRestrictedChar(prev)))
+      if (!(isBlankSpace(c) && isBlankSpace(prev)))
 	 to[index2++] = c;
 	 
       prev = c;
    }
 
    //if char array in composed by white spaces and tab
-   if (index2 == 1 && isRestrictedChar(to[0]))
+   if (index2 == 1 && isBlankSpace(to[0]))
       return 0;
   
   //if last character is blank space
-   if (isRestrictedChar(to[index2-1]))
+   if (isBlankSpace(to[index2-1]))
       index2--;
 
    to[index2] = '\0';
@@ -60,7 +64,7 @@ void copy(char to[], char from[]){
 }
 
 
-int isRestrictedChar(int c){
+int isBlankSpace(int c){
    if(c == '\t' || c == ' ')
       return 1;
    else
@@ -78,10 +82,10 @@ void detab(char to[], char from[]){
 
    for 	(i = 0; from[i] != '\0'; i++){			//global iteration
    	if (from[i] == '\t'){				         //if tab was found
-   		for (j = 0; j < col - aCol; j++)	      //complete tab with spaces	   		
+   		for (j = 0; j < TABSIZE - aCol; j++)	      //complete tab with spaces	   		
    			to[i2++]	= ' ';
          
-   		aCol 			= col - 1;	               //set aCol to final tab stop
+   		aCol 			= TABSIZE - 1;	               //set aCol to final tab stop
       }else{
    	   	
    		to[i2++]		= from[i];
@@ -89,7 +93,7 @@ void detab(char to[], char from[]){
 
       aCol++;						                 //column space counter
       
-      if (aCol == col)                         //if complete a tab stop, reset column counter
+      if (aCol == TABSIZE)                         //if complete a tab stop, reset column counter
 	     aCol		 = 0;
    }
 
@@ -111,7 +115,7 @@ void entab(char to[], char from[]){
       to[i2++]             = from[i];
 
 
-      if (++aCol == col){                      // if complete tab stop then verify is posible replace blanck spaces by tab
+      if (++aCol == TABSIZE){                   // if complete tab stop then verify is posible replace blanck spaces by tab
          if (spacesCounter > 1){
             i2             = i2 - spacesCounter;
             to[i2++]       = '\t';
@@ -123,4 +127,45 @@ void entab(char to[], char from[]){
 
    to[i2]                  = '\0';
 }
+
+void foldLine(char s[]){
+
+   int i,                                             //index s array
+      i2                      = 0,                    //index fl array
+      lstTravWrd              = 0,                    //save position of last word traversed by the iteration
+      eol                     = 0;                    //save pos of end of line of fl array
+
+   int state                 = OUT;                   //state start out of a word
+   char fl[WCOL + 1];                                 //short line array, +1 elem to save end line char for printing
+
+   for (i = 0; s[i] != '\0'; ++i){
+
+      if    (!(isBlankSpace(s[i]))){                   //change state where current char is inside or outside a word
+            state                   = IN; 
+
+      }else if(state == IN){                          //find a blank space so change the state to OUT outside a word
+            state                   = OUT;
+            lstTravWrd              = i;              //save index of last traversed word in s array
+            eol                     = i2;             //save index of last traversed word in fl array
+      }
+
+      if    (i2 == WCOL){                             // a wrap line is complete, so restabish indexes to last seen word
+            fl[eol]                 = '\0';           //put end of line in last traversed word
+            i2                      = 0;              //reset new line index
+            i                       = lstTravWrd - 1; //localize i in last traversed word of s array
+            printf("%s\n", fl);
+
+      }else if (!(isBlankSpace(s[i]) && i2 == 0) ){   //prevent save blanck spaces at begining of new wrap line
+            fl[i2++]                = s[i];
+      }
+   }
+   fl[i2]                     = '\0';
+
+   printf("%s\n", fl);
+}
+
+
+
+
+
 

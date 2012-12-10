@@ -17,10 +17,7 @@ int main(){
    char tabSpaces[MAXLINE];
 
    while((len = getLine(line, MAXLINE)) > 0){
-	 copy(temp, line);
-	 //delRepeatedChars(trimLine, temp);
-	 entab(tabSpaces, temp);
-	 printf("%s", tabSpaces);
+     foldLine(line);
    }
 
    return 0;
