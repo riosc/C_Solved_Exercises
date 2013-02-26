@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		07C5AB571621DB8600D91EDB /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 07C5AB561621DB8600D91EDB /* main.c */; };
-		07C5AB591621DB8600D91EDB /* C_Programming_Language.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 07C5AB581621DB8600D91EDB /* C_Programming_Language.1 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,17 +17,14 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				07C5AB591621DB8600D91EDB /* C_Programming_Language.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		070E5305167560A70021DAF5 /* source.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = source.h; sourceTree = "<group>"; };
 		07C5AB521621DB8600D91EDB /* C_Programming_Language */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = C_Programming_Language; sourceTree = BUILT_PRODUCTS_DIR; };
 		07C5AB561621DB8600D91EDB /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		07C5AB581621DB8600D91EDB /* C_Programming_Language.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = C_Programming_Language.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,9 +57,7 @@
 		07C5AB551621DB8600D91EDB /* C_Programming_Language */ = {
 			isa = PBXGroup;
 			children = (
-				070E5305167560A70021DAF5 /* source.h */,
 				07C5AB561621DB8600D91EDB /* main.c */,
-				07C5AB581621DB8600D91EDB /* C_Programming_Language.1 */,
 			);
 			path = C_Programming_Language;
 			sourceTree = "<group>";
