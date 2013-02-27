@@ -9,31 +9,43 @@
 #include <stdio.h>
 #include <limits.h>
 
+int getLine(char line[], int maxline);
+void copy(char to[], char from[]);
+#define MAXLINE 1000
+
 int main(){
+    int len, max;
+    char line[MAXLINE];
     
-    //example 1
-    enum months{
-        ENE = 1,
-        FEB,
-        MAR,
-        ABR,
-        MAY,
-        JUN,
-        JUL,
-        AGO,
-        SEP,
-        OCT,
-        NOV,
-        DEC
-    };
-    enum months mes;
-    mes = JUL;
+    max = 0;
+    while((len = getLine(line, MAXLINE)) > 0){
+        printf("%d", len);
+    }
     
-    /*MORE EXAMPLES
-     ==============
-     http://crasseux.com/books/ctutorial/enum.html
-     
-     */
     return 0;
 }
 
+int getLine(char s[], int lim){
+    int c, i;
+    
+//    for (i = 0; i < lim-1 && (c = getchar()) != EOF && c != '\n'; ++i){
+
+    for (i = 0; i < lim-1 ; ++i){
+        if ((c = getchar()) != EOF)
+            if (c != '\n')
+                s[i] = c;
+            else
+                break;
+        else
+            break;
+    }
+    
+    if (c == '\n'){
+        s[i] = c;
+        ++i;
+    }
+    s[i] = '\0';
+    
+    return i;
+    
+}
