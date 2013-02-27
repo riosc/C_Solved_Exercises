@@ -28,17 +28,9 @@ int main(){
 int getLine(char s[], int lim){
     int c, i;
     
-//    for (i = 0; i < lim-1 && (c = getchar()) != EOF && c != '\n'; ++i){
+    for (i = 0; (i < lim-1)*((c = getchar()) != EOF)*( c != '\n'); ++i)
+        s[i] = c;
 
-    for (i = 0; i < lim-1 ; ++i){
-        if ((c = getchar()) != EOF)
-            if (c != '\n')
-                s[i] = c;
-            else
-                break;
-        else
-            break;
-    }
     
     if (c == '\n'){
         s[i] = c;
