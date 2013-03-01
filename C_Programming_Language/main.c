@@ -7,37 +7,53 @@
 //
 
 #include <stdio.h>
-#include <limits.h>
-
-int getLine(char line[], int maxline);
-void copy(char to[], char from[]);
-#define MAXLINE 1000
+int lower(int c);
+int isLetter(int c);
+int isDigit(int c);
+int isResDig(int c);
+int htoi(char h[]);
 
 int main(){
-    int len, max;
-    char line[MAXLINE];
     
-    max = 0;
-    while((len = getLine(line, MAXLINE)) > 0){
-        printf("%d", len);
-    }
+    int test = 0xff24;
+    char hnum[] = "ff24";
+    
+    printf("%d -- %d", test, htoi(hnum));
     
     return 0;
 }
-
-int getLine(char s[], int lim){
-    int c, i;
+int htoi(char h[]){
+    int n = 0, i, start = 0;
     
-    for (i = 0; (i < lim-1)*((c = getchar()) != EOF)*( c != '\n'); ++i)
-        s[i] = c;
-
+    if (h[0] == '0' && lower(h[1]) == 'x')
+        start = 2;
     
-    if (c == '\n'){
-        s[i] = c;
-        ++i;
+    for (i = start; isDigit(h[i]) || isLetter(h[i]); i++) {
+        int vd = isDigit(h[i]) ? h[i] - '0' : lower(h[i]) - 'a' + 10;
+        n = 16 * n + vd;
     }
-    s[i] = '\0';
     
-    return i;
-    
+    return n;
 }
+
+int isResDig(int c){
+    return (lower(c) == 'x');
+}
+
+int isDigit(int c){
+    return (c >= '0' && c <= '9');
+}
+
+int isLetter(int c){
+    
+    int lc = lower(c);
+    return (lc >= 'a' && lc<= 'f');
+}
+
+int lower(int c){
+    if (c >= 'A' && c <= 'Z')
+        return c + 'a' - 'A';
+    else
+        return c;
+}
+
