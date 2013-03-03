@@ -7,33 +7,25 @@
 //
 
 #include <stdio.h>
-void squeeze(char s[], char c[]);
+int any(char s1[], char s2[]);
 
 int main(){
     
-    char name[] = "mi nombre es carlos rios";
-    char cdel[] = "ai";
+    char s1[] = "carlos david rios vertel";
+    char s2[] = "xz";
     
-    squeeze(name, cdel);
-    
-    printf("%s", name);
-    
+    printf("pos: %d", any(s1, s2));
     return 0;
 }
 
-void squeeze(char s[], char c[]){
-    int i, j, k, fnd;
-    
-    for (i = k = 0; s[i] != '\0'; i++){
-        for (j = fnd = 0; c[j] != '\0' && !fnd; j++){
-            if (s[i] == c[j]){
-                fnd++;
-            }
-        }
-        if (!fnd)
-            s[k++] = s[i];
-    }
-    s[k] = '\0';
-    
-}
+int any(char s1[], char s2[]){
 
+    int i, j;
+    
+    for (i = 0; s1[i] != '\0'; i++)
+        for (j = 0; s2[j] != '\0'; j++)
+            if (s1[i] == s2[j])
+                return i;
+    
+    return -1;
+}
