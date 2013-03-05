@@ -8,13 +8,22 @@
 
 #include <stdio.h>
 unsigned getbits(unsigned x, int p, int n);
+unsigned setbits(unsigned x, int p, int n, unsigned y);
 
 int main(){
     
-    int n = 987;
-    printf("val: %d", getbits(n, 4, 3));
+    int x = 987, y = 525;
     
+    printf("val: %d", setbits(x, 9, 10, y));
     return 0;
+}
+
+//setbits:set bits from y to x in pos p to n
+unsigned setbits(unsigned x, int p, int n, unsigned y){
+    return
+    ((x >> p + 1) << p + 1)             |
+    getbits(y, p, n) << (p + 1 - n)     |
+    getbits(x, p - n, p - n + 1);
 }
 
 //getbits: get n bits from position p
