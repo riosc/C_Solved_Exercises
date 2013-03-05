@@ -8,35 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "C_Programming_Language/main.c"
-         timestampString = "384022283.114941"
+         timestampString = "384146876.058232"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "54"
-         endingLineNumber = "54">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "C_Programming_Language/main.c"
-         timestampString = "384022401.690567"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "21"
-         endingLineNumber = "21">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "C_Programming_Language/main.c"
-         timestampString = "384022566.955032"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "14"
-         endingLineNumber = "14"
-         landmarkName = "main()"
-         landmarkType = "7">
+         startingLineNumber = "46"
+         endingLineNumber = "46">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>
