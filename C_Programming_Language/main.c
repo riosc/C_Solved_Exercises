@@ -9,13 +9,19 @@
 #include <stdio.h>
 unsigned getbits(unsigned x, int p, int n);
 unsigned setbits(unsigned x, int p, int n, unsigned y);
+unsigned invert(unsigned x, int p, int n);
 
 int main(){
     
-    int x = 987, y = 525;
+    int x = 827;
     
-    printf("val: %d", setbits(x, 9, 10, y));
+    printf("val: %d", invert(x, 4, 5));
     return 0;
+}
+
+//invert: invert n bit in x from p position
+unsigned invert(unsigned x, int p, int n){
+    return setbits(x, p, n, getbits(~x, p, n));
 }
 
 //setbits:set bits from y to x in pos p to n
