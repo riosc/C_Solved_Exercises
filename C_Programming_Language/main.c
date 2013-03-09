@@ -7,32 +7,21 @@
 //
 
 #include <stdio.h>
-unsigned getbits(unsigned x, int p, int n);
-unsigned setbits(unsigned x, int p, int n, unsigned y);
-unsigned invert(unsigned x, int p, int n);
+int bitcount(unsigned x);
 
 int main(){
     
-    int x = 827;
+    int x = 511;
     
-    printf("val: %d", invert(x, 4, 5));
+    printf("num bits:%d", bitcount(x));
     return 0;
 }
 
-//invert: invert n bit in x from p position
-unsigned invert(unsigned x, int p, int n){
-    return setbits(x, p, n, getbits(~x, p, n));
-}
+int bitcount(unsigned x){
+    int b;
+    
+    for (b = 0; x != 0; x &= (x - 1))
+            b++;
 
-//setbits:set bits from y to x in pos p to n
-unsigned setbits(unsigned x, int p, int n, unsigned y){
-    return
-    ((x >> p + 1) << p + 1)             |
-    getbits(y, p, n) << (p + 1 - n)     |
-    getbits(x, p - n, p - n + 1);
-}
-
-//getbits: get n bits from position p
-unsigned getbits(unsigned x, int p, int n){
-    return (x >> (p + 1 - n) & ~(~0 << n));
+    return b;
 }
