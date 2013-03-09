@@ -7,21 +7,16 @@
 //
 
 #include <stdio.h>
-int bitcount(unsigned x);
+int lower(int c);
 
-int main(){
-    
-    int x = 511;
-    
-    printf("num bits:%d", bitcount(x));
+int main()
+{
+    char h = 'A';
+    putchar(lower(h));
     return 0;
 }
 
-int bitcount(unsigned x){
-    int b;
-    
-    for (b = 0; x != 0; x &= (x - 1))
-            b++;
-
-    return b;
+int lower(int c)
+{
+    return (c >= 'A' && c <= 'Z') ? c + 'a' - 'A' : c;
 }
