@@ -7,40 +7,82 @@
 //
 
 #include <stdio.h>
-int binsearch(int x, int v[], int n);
+#define MAXLINE 1000
+
+void unescape(char s[], char t[]);
+void escape(char s[], char t[]);
 
 int main()
 {
-    int v[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+    char t[]  = "cadena\n \tde";
+    char s[MAXLINE];
+    unescape(s, t);
+    escape(s, t);
     
-    printf("pos: %d", binsearch(1, v, 20));
+    printf("Text1:  %s\n", s);
+    printf("Text2:  %s\n", t);
+
     return 0;
 }
 
-/* binsearch: find x in v[0] <= v[1] <= ... <= v[n-1] */
-int binsearch(int x, int v[], int n)
-{
-    int low, hight, mid;
-    low             = 0;
-    hight           = n - 1;
+//converts visibles characters like new line. tab in real characters
+void unescape(char s[], char t[]){
+    int i, j = 0;
     
-    while (low <= hight && v[mid] != x) {
-        mid = (low + hight)/2;
-
-        if (x < v[mid])
-            hight   = mid - 1;
-        else
-            low     = mid + 1;
+    for (i = 0; t[i] != '\0'; i++)
+    {
+        switch (t[i]) {
+            case '\n':
+                s[j++]  = '\\';s[j++] = 'n';
+                break;
+            case '\t':
+                s[j++]  = '\\';s[j++] = 't';
+                break;
+            case '\b':
+                s[j++]  = '\\';s[j++] = 'b';
+                break;
+            default:
+                s[j++]    = t[i];
+                break;
+        }
     }
-/*
-    if (v[hight] == x)
-        return hight;
-    else if (v[low] == x)
-        return low;
-    else if (v[mid] == x)
-        return mid;
-    else
-        return -1;
-*/
-    return (v[mid] == x) ? mid : -1;
+    
+    s[j] = '\0';
+    
 }
+
+//converts characters like new line, tab in visibles characters
+void escape(char s[], char t[]){
+    
+    int i, j = 0;
+    
+    for (i = 0; t[i] != '\0'; i++)
+    {
+        if (t[i] == '\\')
+        {
+            switch (t[++i]) {
+                case 'n':
+                    s[j++] = '\n';
+                    break;
+                case 't':
+                    s[j++] = '\t';
+                    break;
+                case 'b':
+                    s[j++] = '\b';
+                    break;
+                    
+                default:
+                    i--;
+                    s[j++] = t[i];
+                    break;
+            }
+            
+        }
+        else
+        {
+            s[j++] = t[i];
+        }
+    }
+    s[j] = '\0';
+}
+
